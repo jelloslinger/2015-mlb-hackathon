@@ -110,8 +110,8 @@ Kansas City Royals trusted Wade Davis to close out the series; the Jays at the v
 to get on base. The team’s MVP, Josh Donaldson, stood in the on deck circle.
                     </p>
                     <p>
-Revere doesn’t hit walk off home runs, but he puts the bat on the ball more often than not. And yet, with a nasty 
-curveball, Davis sent Revere walking back to the dugout. Donaldson grounded out moments later and 
+Revere doesn’t hit walk off home runs, but he puts the bat on the ball more often than not - 52 swinging strikes to 372 swings with contact
+(<a href="#ref-revere">reference</a>).  And yet, with a nasty curveball, Davis sent Revere walking back to the dugout. Donaldson grounded out moments later and 
 the Royals won the pennant.
                     </p>
                     <p>
@@ -151,7 +151,7 @@ A player's success or slump doesn't hinge on his plate approach score.  Revere s
 with Toronto going 0 for 13, yet his plate approach score indicates that he was still hovering close to his normal.  From Aug. 21st to 29th,
 he had an 8-game hitting streak which bumped is batting average significantly, yet his plate approach score indicates that he
 was no more locked in than when he first joined the team.  It was not until the playoffs that his plate approach score took a dive.  The weekly line drive count 
-for his last month in baseball for 2015 is 10, 7, 0, and 2.
+for his last month in baseball for 2015 is 10, 7, 0, and 2 (<a href="#ref-ld">reference</a>).
                     </p>
                     <p>
                         The dashboard indicates that Revere was struggling with his plate approach come the Kansas City series.
@@ -188,11 +188,11 @@ The methodology to attach the sample numbers to the original data set are found 
                     <h2 class="section-heading" id="defining-pa">Defining Plate Approach (Optimized to Line Drives) - PAoLD</h2>
                     <p>
 Let's start with a simple premise: each time a batter swings his intention is to put the ball in play.  (There is the exception
-where a batter may be spoiling a pitch, but let's keep definitions simple for working towards a minimum viable product.)  If we count the
-number of swings to an event, we
-have a measure of success (the lower being preferred).  To go one step further, I decided to track the number of swings to
-a line drive.  As a first stake in the ground, this seems like a good proxy for a quality hit.  If
-the feedback were good, it would be interesting to perhaps pull in hard contact data or blend different 
+where a batter may be spoiling a pitch, but let's keep definitions simple for working towards a minimum viable product.)  Counting
+the number of swings to an event gives us a measure (the fewer swings taken to reach the event is preferred).  To go one step further, 
+I decided to track the number of swings to  a line drive.  As a first stake in the ground, this seems like a good proxy for a quality hit.  It
+would be interesting to perhaps pull in hard contact data or blend different plate approaches ("swings to fly ball", "swings to ground ball", etc.),
+but I leave this as a future version feature.
                     </p>
                     <p>
 Next, we only consider our controlled samples when we count the swings to a line drive.  Once a line drive is hit (within a
@@ -202,8 +202,9 @@ controlled sample), then we can reset and start from zero.
 Now, we have sample sets (with nine players in each of them) with how many swings they have taken until they last hit a line
 drive.  Let's transform those numbers into a score by finding the mean and calculating their standard deviation from the
 mean (<a href="#query-stddev-from-mean">see how this was derived from the dimensional model</a>).  Since I used a normal distribution,
-99.7% of the data is within 3 standard deviations. To convert the number to look more like a score, I multiplied by -3/100.  A 
-negative was used so visually we can see an upward trend as positive when we start to look at the Dashboard.
+99.7% of the data is within 3 standard deviations. To convert the number to look more like a score, I divided the number by 3
+and multiplied by 100.  Then, I inversed the trend line by multiplying by -1 so visually we can see an upward trend as positive
+when we start to look at the Dashboard.
 
 To summarize, controlled samples were created to compare the batter's ability to produce a line drive in the fewest number of
 swings.  The sample assumes everyone is trying to put the ball in play and that line drives will serve as proxy to a quality
@@ -270,14 +271,82 @@ Next, an aggregate model was created to represent "At Bats".  This model defines
                     </p>
                     <span class="caption text-muted">At Bat Dimensional Model.</span>
                     <p>With sound data models in place, it made analysis much easier via SQL.  For example, the query used to produce the data extract was:</p>
-                    <p>
-                        <img class="img-responsive" id="query-stddev-from-mean" src="img/query-stddev-from-mean.png" alt="At Bat Dimensional Model">
-                    </p>
+                    <pre>
+SELECT
+	CONCAT(dpb.teamAbbreviation, ' - ',dpb.playerName) AS batter,
+	CONCAT(dpp.teamAbbreviation, ' - ',dpp.playerName) AS pitcher,
+	dd.date,
+	f.mlbBaselineSampleDim,
+	(f.sampleSwingsToBallInPlay - x.avgSampleSwingsToBallInPlay)/x.stddevSampleSwingsToBallInPlay AS ssbipScore,
+	(f.sampleSwingsToLineDrive - x.avgSampleSwingsToLineDrive)/x.stddevSampleSwingsToLineDrive AS ssldScore
+FROM common.Mlb_FACT_AtBat f
+JOIN common.DIM_Date dd ON f.dateId = dd.id
+JOIN common.Mlb_DIM_Player dpb ON f.mlbPlayerBatterId = dpb.id
+JOIN common.Mlb_DIM_Player dpp ON f.mlbPlayerPitcherId = dpp.id
+JOIN (
+	SELECT
+		f.mlbBaselineSampleDim,
+		AVG(f.sampleSwingsToBallInPlay) AS avgSampleSwingsToBallInPlay,
+		STDDEV(f.sampleSwingsToBallInPlay) AS stddevSampleSwingsToBallInPlay,
+		AVG(f.sampleSwingsToLineDrive) AS avgSampleSwingsToLineDrive,
+		STDDEV(f.sampleSwingsToLineDrive) AS stddevSampleSwingsToLineDrive
+	FROM common.Mlb_FACT_AtBat f
+	WHERE f.mlbBaselineSampleDim != 0 AND f.mlbSampleDim IN (
+		SELECT
+		DISTINCT f.mlbSampleDim
+		FROM common.Mlb_FACT_PitchByPitch f
+		JOIN common.Mlb_DIM_Player dp ON f.mlbPlayerBatterId = dp.id AND dp.teamAbbreviation IN (
+			'COL', 'CLE', 'DET', 'MIL', 'MIN', 'NYM', 'PIT', 'TOR'
+        )
+	)
+	GROUP BY
+		f.mlbBaselineSampleDim
+) x ON f.mlbBaselineSampleDim = x.mlbBaselineSampleDim
+ORDER BY
+	f.mlbBaselineSampleDim;
+                    </pre>
                     <span class="caption text-muted">Query for Standard Deviation from the Mean.</span>
                     <p>
                         With the data to be analyzed in hand, the last step was to develop the dashboard using a visualization tool.  Tableau Pubic was leveraged
                         to build out the Dashboard.
                     </p>
+                    
+                        <h2 class="section-heading">Reference Queries</h2>
+<br />
+<br />
+                        <pre id="ref-revere">
+SELECT 
+	SUM(
+		CASE
+			WHEN ds.pitchResult = 'SS' THEN 1
+			ELSE 0
+		END
+    ) AS swings_misses,
+	SUM(
+		CASE
+			WHEN ds.pitchResult IN ('F', 'FT', 'IP') THEN 1
+			ELSE 0
+		END
+    ) AS swings_contact
+FROM common.Mlb_FACT_PitchByPitch f
+JOIN common.DIM_Date dd ON f.dateId = dd.id and dd.date >= '2015-08-01'
+JOIN common.Mlb_DIM_Player dp ON f.mlbPlayerBatterId = dp.id AND dp.playerName = 'Ben Revere'
+JOIN common.Mlb_DIM_Situation ds ON f.mlbSituationId = ds.id AND ds.pitchResult IN ('SS', 'F', 'FT', 'IP')
+                        </pre>
+                    <span class="caption text-muted">Ben Revere's Swinging Strikes and Swings with Contact as a Blue Jay</span>
+<br />
+<br />
+<pre id="ref-ld">                        
+SELECT 
+	WEEK(dd.date),
+	COUNT(*)
+FROM common.Mlb_FACT_PitchByPitch f
+JOIN common.DIM_Date dd ON f.dateId = dd.id and dd.date >= '2015-08-01'
+JOIN common.Mlb_DIM_Player dp ON f.mlbPlayerBatterId = dp.id AND dp.playerName = 'Ben Revere'
+JOIN common.Mlb_DIM_Outcome doc ON f.mlbOutcomeId = doc.id AND doc.battedBallType = 'LD'
+GROUP BY WEEK(dd.date);
+</pre>
+                    <span class="caption text-muted">Weekly Line Drive Hits by Ben Revere</span>
                     <h2 class="section-heading">Acknowledgements</h2>
                     <p>
                         Thanks to:
@@ -285,6 +354,7 @@ Next, an aggregate model was created to represent "At Bats".  This model defines
                             <li>Sean Shaughnessy for playing around with the dashboard and finding interesting results</li>
                             <li>Aaron Hutchins for editing the Analysis piece</li>
                             <li>Paul Luong for affirming the data models</li>
+                            <li>Ray Kwong for reading the piece from an analysts perspective and finding mistakes</li>
                         </ul>
                     </p>
                 </div>
