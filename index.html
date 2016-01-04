@@ -51,23 +51,23 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="index.html#analysis">Analysis</a>
+                        <a href="index.html#analysis">Analysis (Top)</a>
                     </li>
                     <li>
                         <a href="index.html#abstract">Abstract</a>
                     </li>
                     <li>
-                        <a href="index.html#controlled-samples">Controlled Samples</a>
+                        <a href="index.html#controlled-samples">Samples</a>
                     </li>
                     <li>
-                        <a href="index.html#defining-pa">Defining Plate Approach</a>
+                        <a href="index.html#defining-pa">Plate Approach</a>
                     </li>
                     <li>
                         <a href="index.html#dashboard-how-to">How To</a>
                     </li>
-                    <!-- <li>
-                        <a href="contact.html">Contact</a>
-                    </li> -->
+                    <li>
+                        <a href="index.html#dashboard">Dashboard</a>
+                    </li>
                     <li>
                         <a href="index.html#methodology">Methodology</a>
                     </li>
@@ -102,22 +102,21 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     
-                    <h2 class="section-heading" id="analysis">Analysis #1 - Identifying Deviation of Plate Approach</h2>
+                    <h2 class="section-heading" id="analysis">Analysis - Identifying Deviation of Plate Approach</h2>
                     <p>
-Watching the final inning of an elimination game can be controversial.  Every player going to the plate is potentially a
-hero or a goat.  Every pitch is potentially a game changer or a crushing blow.  One of these nail biting situations was in Game #6 of
-the ALCS - Wade Davis was in the game to close things out, but Toronto was able to get runners to second and third
-with one out (as Dioner Navarro had struck out looking).  Ultimately, there was no game changing to this story as Davis
-struck out Ben Revere and managed to get Josh Donaldson to grounded out.
+                        It didn’t look like the typical Ben Revere at bat. In the top of the ninth in Game 6 of the ALCS, 
+the Blue Jays trailing by 1, Revere came to the plate with runners on second and third and one out. The 
+Kansas City Royals trusted Wade Davis to close out the series; the Jays at the very least needed Revere 
+to get on base. The team’s MVP, Josh Donaldson, stood in the on deck circle.
                     </p>
                     <p>
-With the game in the books, you wonder if the baseball gods coin flip just came up Kansas City that night.  Could we weight
-attribution more to Wade Davis' performance?  Or were there any indicators that the outs made could be attributed to
-plate approach?
+Revere doesn’t hit walk off home runs, but he puts the bat on the ball more often than not. And yet, with a nasty 
+curveball, Davis sent Revere walking back to the dugout. Donaldson grounded out moments later and 
+the Royals won the pennant.
                     </p>
                     <p>
-A dashboard has been created to illustrate the latter question.  Let's take a look at the three last batters outed in that elimination
-game to see what's interesting.
+Wade Davis was the hero of the ninth inning but are there any indicators that the outs made could be attributed to Jays’ plate 
+approach? What happened to Ben Revere?                        
                     </p>
                     <p>
                         <img class="img-responsive" src="img/dashboard-tor.png" alt="">
@@ -137,40 +136,40 @@ important notes to the trend line:
                     <p>
 To the right and below the filters, there is a box plot showing the same data as a snapshot for the period.  The whiskers represent the lower
 and upper quartiles.  This view allows us to compare player profiles.  Notice that Ben Revere has a higher mean score (17.7) than
-Dioner Navarro (14.4) and Josh Donaldson (9.4).  This doesn't indicate that Revere is any better of a hitter, but that he profiles as a
+Dioner Navarro (14.4) and Josh Donaldson (9.4).  This doesn't indicate that Revere is a better hitter, but that he profiles as a
 line drive hitter more often (and for which he does get credited, see https://en.wikipedia.org/wiki/Ben_Revere#Offense).  More
 information on how the score is calculated will be discussed in following sections.
                     </p>
                     <p>
-                        Let's get back to analysis.  Taking a look at the dashboard again, the insight that sticks out is that Revere starts
-                        to negatively deviate from his profile during the playoffs.  Starting October 3rd against Chris Archer, he drops
-                        to the lower quartile and never recovers.  At his last sample taken (which is October 23rd against Yordano Ventura),
-                        his score is -88.3 which is 106 points away from his mean.
+                        Taking a look at the dashboard Revere starts to negatively deviate from his profile during the playoffs.  
+                        Starting October 3rd against Chris Archer, he drops
+                        to the lower quartile and never recovers.  At his last sample taken, October 23rd against Yordano Ventura,
+                        his score is -88.3.  This is 106 points away from his mean.
                     </p>
                     <p>
-It is important to note that a player's success or slump doesn't hinge on his plate approach score.  Going back to Ben Revere, he started his
-time with Toronto going 0 for 13.  His plate approach score indicates that he was still hovering close to his normal.  Going onwards to Aug. 21st to 29th,
-he had an 8 game hitting streak which bumped is batting average significantly.  However, his plate approach score simply indicates that he
-was locked in close to his normal.  It is not until the playoffs that his plate approach score takes a dive.  If we take a look at this 
-the weekly line drive count in his last month of baseball for 2015 it goes 10, 7, 0, and 2.
+A player's success or slump doesn't hinge on his plate approach score.  Revere started 
+with Toronto going 0 for 13, yet his plate approach score indicates that he was still hovering close to his normal.  From Aug. 21st to 29th,
+he had an 8-game hitting streak which bumped is batting average significantly, yet his plate approach score indicates that he
+was no more locked in than when he first joined the team.  It was not until the playoffs that his plate approach score took a dive.  The weekly line drive count 
+for his last month in baseball for 2015 is 10, 7, 0, and 2.
                     </p>
                     <p>
-                        So, the dashboard indicates that Revere was struggling with his plate approach come the Kansas City series.
+                        The dashboard indicates that Revere was struggling with his plate approach come the Kansas City series.
                         This intelligence could be used to go back to see what he was doing in his at bats prior to October 3rd when
-                        he was more "locked in".
+                        he was more "locked in". Maybe Revere could have hit one more line drive when the team needed it most.
                     </p>
                     <h2 class="section-heading" id="abstract">Abstract</h2>
                     <p>
 Offensive production rates are prone to rise and fall during hot streaks and slumps.  It can be difficult to determine whether
 these periods are due to the quality of plate approach or some other factor.  For instance, a batter's average may
-drop over a period due to facing quality pitching despite maintaining a good approach.  In contrast, a batter
-may be maintaining his good offense through some seeing eye singles.  The following analysis and methodology will focus on
+drop over a period due to quality pitching despite maintaining a good approach.  In contrast, a batter
+may be maintaining his good offense through some seeing-eye singles.  The following analysis and methodology will focus on
 uncoupling some of these other factors.  The goal is to have a metric that can gauge whether a batter is trending away from
 their mean approach.  Also, it provides a clear visual indicating when a batter starts to deviate.
                     </p>
                     <p>
-The following few sections explains how to arrive at a measure for Plate Approach.  If you would like to start
-playing with the Dashboard to see what it looks like and then jump back <a href="#dashboard">click here</a> or use the PAoLD
+The following few sections explain how to arrive at a measure for Plate Approach.  If you would like to start
+playing with the Dashboard to see what it looks like and then jump back <a href="#dashboard-how-to">click here</a> or use the PAoLD
  (Plate Approach Optimized to Line Drives) Dashboard link on the header ribbon.
                     </p>
                     <h2 class="section-heading" id="controlled-samples">Selecting Controlled Samples</h2>
@@ -186,19 +185,21 @@ In this way, we can control factors such as:
                         </ul>
 The methodology to attach the sample numbers to the original data set are found in the last section on this page (<a href="#methodology">click here</a>)
                     </p>
-                    <h2 class="section-heading" id="defining-qpa">Defining Plate Approach Optimizing to Line Drives (PAoLD)</h2>
+                    <h2 class="section-heading" id="defining-pa">Defining Plate Approach (Optimized to Line Drives) - PAoLD</h2>
                     <p>
-Let's start with a simple premise.  Each time a batter swings his intention is to put the ball in play.  There are situations
-where a batter may be spoiling a pitch, but let's keep it simple for now.  If we count the number of swings to an event, we
-have a measure of success (the lower being prefered).  To go one step further, I decided to track the number of swings to
-a line drive.  This seems to be a good proxy for a quality hit towards the minimum viable product.
+Let's start with a simple premise: each time a batter swings his intention is to put the ball in play.  (There is the exception
+where a batter may be spoiling a pitch, but let's keep definitions simple for working towards a minimum viable product.)  If we count the
+number of swings to an event, we
+have a measure of success (the lower being preferred).  To go one step further, I decided to track the number of swings to
+a line drive.  As a first stake in the ground, this seems like a good proxy for a quality hit.  If
+the feedback were good, it would be interesting to perhaps pull in hard contact data or blend different 
                     </p>
                     <p>
 Next, we only consider our controlled samples when we count the swings to a line drive.  Once a line drive is hit (within a
 controlled sample), then we can reset and start from zero.
                     </p>
                     <p>
-So now, we have sample sets (with nine players in each of them) with how many swings they have taken until they last hit a line
+Now, we have sample sets (with nine players in each of them) with how many swings they have taken until they last hit a line
 drive.  Let's transform those numbers into a score by finding the mean and calculating their standard deviation from the
 mean (<a href="#query-stddev-from-mean">see how this was derived from the dimensional model</a>).  Since I used a normal distribution,
 99.7% of the data is within 3 standard deviations. To convert the number to look more like a score, I multiplied by -3/100.  A 
@@ -207,8 +208,6 @@ negative was used so visually we can see an upward trend as positive when we sta
 To summarize, controlled samples were created to compare the batter's ability to produce a line drive in the fewest number of
 swings.  The sample assumes everyone is trying to put the ball in play and that line drives will serve as proxy to a quality
 hit.
-
-
                     </p>
                     <h2 class="section-heading" id="dashboard-how-to">Dashboard (How To Use)</h2>
                     <p>
@@ -245,82 +244,55 @@ to go back to the original state.
 
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     
-                    <!-- <h2 class="section-heading" id="caveats">Caveats</h2>
-                    <p>not a measure of how good the hitter is, but the quality of the approach</p>
-                    <p>change in our control sets</p>
-                    <p>using a normal distribution is incorrect</p>
-                    <p>not everyone is trying to hit a line drive</p>
-                    <p></p>
-                    <h2 class="section-heading">Next Steps / Contact</h2>
-                    <p>Iterating upon the methodology.  Hitting the video room and seeing if the methodology</p>
-                    <p>Next </p> -->
-
-
-
                     <h2 class="section-heading" id="methodology">Methodology</h2>
 
-                    <p>From the data set provided by TruMedia Networks for the Hackathon, it was transf
+                    <p>
+Using the data set provided by TruMedia Networks for the Hackathon, dimensional models were created as the basis for a data warehouse. 
+Python scripts were used to ingest the data:
 
-                    
+                        <ul>
+                            <li><a href="https://github.com/jelloslinger/2015-mlb-hackathon/tree/master/python/mlb" target="_blank">https://github.com/jelloslinger/2015-mlb-hackathon/tree/master/python/mlb</a></li>
+                        </ul>
+                                
+                    </p>
+<p>                    
+  The first model below represents the "Pitch By Pitch" data provided:
+</p>
                     <p>
                         <img class="img-responsive" src="img/pitchbypitch-dimensional-model.png" alt="Pitch By Pitch Dimensional Model">
                     </p>
                     <span class="caption text-muted">Pitch By Pitch Dimensional Model.</span>
                     <p>
+Next, an aggregate model was created to represent "At Bats".  This model defines new metrics not found in the original data set.  As "swings to ball in play" and "swings to line drive" were needed for the analysis, business logic was written within the Python scripts to produce these metrics.
+                    </p>
+                    <p>
                         <img class="img-responsive" src="img/at-bat-dimensional-model.png" alt="At Bat Dimensional Model">
                     </p>
                     <span class="caption text-muted">At Bat Dimensional Model.</span>
+                    <p>With sound data models in place, it made analysis much easier via SQL.  For example, the query used to produce the data extract was:</p>
                     <p>
                         <img class="img-responsive" id="query-stddev-from-mean" src="img/query-stddev-from-mean.png" alt="At Bat Dimensional Model">
                     </p>
                     <span class="caption text-muted">Query for Standard Deviation from the Mean.</span>
-
-
-
-                    <p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
+                    <p>
+                        With the data to be analyzed in hand, the last step was to develop the dashboard using a visualization tool.  Tableau Pubic was leveraged
+                        to build out the Dashboard.
+                    </p>
+                    <h2 class="section-heading">Acknowledgements</h2>
+                    <p>
+                        Thanks to:
+                        <ul>
+                            <li>Sean Shaughnessy for playing around with the dashboard and finding interesting results</li>
+                            <li>Aaron Hutchins for editing the Analysis piece</li>
+                            <li>Paul Luong for affirming the data models</li>
+                        </ul>
+                    </p>
                 </div>
             </div>
         </div>
     </article>
 
     <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
